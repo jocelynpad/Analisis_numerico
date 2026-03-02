@@ -92,7 +92,14 @@ print(f"La primera raíz por el método de Newton-Ralph es: {raiz_n}")
 
 **Aproximación de la primera raíz por el método de la secante**
 
+```{python}
+raiz_s, raizs_info = optimize.newton(f, x0=1, x1=4, full_output= True) 
 
+print("Método de la secante") 
+print(raizs_info)
+print("-------------")
+print(f"La aproximación de la raíz por el método de la secante es: {raiz_s}")  
+```
 
 **Aproximación de la segunda raíz por el método de la biseccion**
 
@@ -173,14 +180,19 @@ plt.show()
 
 ```{python}
 #| code-fold: true
-df = lambda x: 1/(2*np.sqrt(x))-np.cos(x)
 
-raiz_n, raizn_info = optimize.newton(f, x0=4, fprime =df,full_output=True) 
+def f(x):
+    return np.sqrt(x) - np.sin(x) - 1
 
-print("Método de Newton Raphson") 
-print(raizn_info) 
-print("--------------")
-print(f"La aproximacion de la raiz por el método de Newton-Raphson es: {raiz_n}") 
+def df(x):
+    return 1/(2*np.sqrt(x)) - np.cos(x)
+
+raiz, info = optimize.newton(f, x0=4, fprime=df, full_output=True)
+
+print("Método de Newton-Raphson")
+print(info)
+print("------------------------")
+print(f"La aproximación de la raíz para c = 1 por el método de newton es: {raiz}") 
 ```
 
 
@@ -220,7 +232,9 @@ print(f"La aproximación de la raíz por el método de la secante es: {raiz_s}")
 f = lambda x: np.sqrt(x)-np.sin(x)-np.pi 
 
 rb, rinfob = optimize.bisect(f, 2, 5, full_output=True) 
-rn, rinfon=optimize.newton(f, x0=2, x1= 4,  fprime= df, full_output=True) 
+rn, rinfon=optimize.newton(f, x0=3, fprime= df, full_output=True) 
+rs, rinfos= optimize.newton(f, x0=2, x1= 4, full_output=True) 
+
 
 print(f"Raiz bisección: {rb}") 
 print(f"Raiz Newton: {rn}") 
@@ -235,8 +249,8 @@ print(f"Raiz secante: {rs}")
 f = lambda x: np.sqrt(x)-np.sin(x)-np.pi 
 
 rb, rinfob = optimize.bisect(f, 5, 7, full_output=True) 
-rn, rinfon=optimize.newton(f, x0=6, fprime= df,  fprime= df, full_output=True)
-rs, rinfos= optimize.newton(f x0=5, x1=7,  full_output=True) 
+rn, rinfon = optimize.newton(f, x0=6, fprime= df, full_output=True) 
+rs, rinfos= optimize.newton(f, x0=5, x1=7,  full_output=True) 
 
 print(f"Raiz bisección: {rb}") 
 print(f"Raiz Newton: {rn}") 
